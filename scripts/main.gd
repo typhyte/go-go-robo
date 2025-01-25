@@ -12,6 +12,8 @@ func _ready():
 func _physics_process(delta):
 	if Input.is_action_just_pressed("light_shoot") && get_tree().get_nodes_in_group("alive_bullets").size() < 3:
 		shoot()
+	
+	print("The amount of bullets in the scene are: " + str(get_tree().get_nodes_in_group("alive_bullets").size()))
 
 func shoot():
 	var small_bullet = small_bullet_scene.instantiate()

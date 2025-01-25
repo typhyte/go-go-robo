@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://b0uspmdk1rud7"]
+[gd_scene load_steps=7 format=3 uid="uid://b0uspmdk1rud7"]
 
 [ext_resource type="PackedScene" uid="uid://doryi546bf0xw" path="res://scenes/character_scenes/robo.tscn" id="1_4atfm"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_yw8av"]
 [ext_resource type="PackedScene" uid="uid://tesof8stxokw" path="res://scenes/character_scenes/guard.tscn" id="2_7vy40"]
 [ext_resource type="PackedScene" uid="uid://dq88m13uaaf70" path="res://scenes/object_scenes/small_bullet.tscn" id="2_722ru"]
+[ext_resource type="PackedScene" uid="uid://ccgp0ofobx2wa" path="res://scenes/misc_scenes/random_bgs.tscn" id="5_6weis"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m5map"]
 size = Vector2(1152, 64)
@@ -24,6 +25,7 @@ offset_left = -576.0
 offset_top = -32.0
 offset_right = 576.0
 offset_bottom = 32.0
+color = Color(0.497474, 0.497474, 0.497474, 1)
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor"]
@@ -36,5 +38,16 @@ autostart = true
 
 [node name="GuardSpawnLocation" type="Marker2D" parent="."]
 position = Vector2(1024, 480)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -10
+
+[node name="random_bgs" parent="CanvasLayer" instance=ExtResource("5_6weis")]
+position = Vector2(576, 320)
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+z_index = -1
+offset_right = 1152.0
+offset_bottom = 648.0
 
 [connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
