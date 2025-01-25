@@ -15,8 +15,10 @@ offset_left = -8.0
 offset_top = -8.0
 offset_right = 8.0
 offset_bottom = 8.0
+color = Color(0, 0, 0, 1)
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("CircleShape2D_xb1p5")
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -24,9 +26,11 @@ collision_layer = 2
 collision_mask = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+visible = false
 shape = SubResource("CircleShape2D_xb1p5")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+visible = false
 
 [connection signal="area_exited" from="Area2D" to="." method="enemyHit"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="onExitScreen"]
