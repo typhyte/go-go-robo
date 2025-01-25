@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://dq88m13uaaf70"]
+
+[ext_resource type="Script" path="res://scripts/object_scripts/small_bullet.gd" id="1_ayyxy"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xb1p5"]
+
+[node name="small_bullet" type="CharacterBody2D"]
+show_behind_parent = true
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_ayyxy")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_xb1p5")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_xb1p5")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="area_exited" from="Area2D" to="." method="enemyHit"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="onExitScreen"]

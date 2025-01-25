@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://b0uspmdk1rud7"]
+
+[ext_resource type="PackedScene" uid="uid://doryi546bf0xw" path="res://scenes/character_scenes/robo.tscn" id="1_4atfm"]
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_yw8av"]
+[ext_resource type="PackedScene" uid="uid://tesof8stxokw" path="res://scenes/character_scenes/guard.tscn" id="2_7vy40"]
+[ext_resource type="PackedScene" uid="uid://dq88m13uaaf70" path="res://scenes/object_scenes/small_bullet.tscn" id="2_722ru"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m5map"]
+size = Vector2(1152, 64)
+
+[node name="game" type="Node2D"]
+script = ExtResource("1_yw8av")
+small_bullet_scene = ExtResource("2_722ru")
+guard_scene = ExtResource("2_7vy40")
+
+[node name="robo" parent="." instance=ExtResource("1_4atfm")]
+position = Vector2(64, 480)
+
+[node name="floor" type="StaticBody2D" parent="."]
+position = Vector2(576, 616)
+
+[node name="ColorRect" type="ColorRect" parent="floor"]
+offset_left = -576.0
+offset_top = -32.0
+offset_right = 576.0
+offset_bottom = 32.0
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="floor"]
+shape = SubResource("RectangleShape2D_m5map")
+metadata/_edit_lock_ = true
+
+[node name="MobTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[node name="GuardSpawnLocation" type="Marker2D" parent="."]
+position = Vector2(1024, 480)
+
+[connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]

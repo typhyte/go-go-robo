@@ -1,0 +1,58 @@
+[gd_scene load_steps=7 format=3 uid="uid://doryi546bf0xw"]
+
+[ext_resource type="Script" path="res://scripts/robo_v2.gd" id="1_srssj"]
+[ext_resource type="Texture2D" uid="uid://wu61kgsvl5n7" path="res://sprites/robo/robo_stand1.png" id="1_ywy3h"]
+[ext_resource type="Texture2D" uid="uid://dimos1w26j2r6" path="res://sprites/robo/robo_stand2.png" id="2_gkc86"]
+[ext_resource type="Texture2D" uid="uid://cnulri336yns2" path="res://sprites/robo/robo_stand3.png" id="3_wdqre"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lig4y"]
+radius = 32.0
+height = 160.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l60lv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_ywy3h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_gkc86")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_wdqre")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 6.0
+}]
+
+[node name="robo" type="CharacterBody2D"]
+script = ExtResource("1_srssj")
+
+[node name="collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, 8)
+shape = SubResource("CapsuleShape2D_lig4y")
+metadata/_edit_lock_ = true
+
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_l60lv")
+animation = &"idle"
+frame_progress = 0.365265
+offset = Vector2(10.99, 0)
+metadata/_edit_lock_ = true
+
+[node name="bullet_pos" type="Marker2D" parent="."]
+position = Vector2(64, 0)
+metadata/_edit_lock_ = true
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_mask = 5
+metadata/_edit_lock_ = true
+
+[node name="hurtbox" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 8)
+shape = SubResource("CapsuleShape2D_lig4y")
+metadata/_edit_lock_ = true
+
+[connection signal="area_entered" from="Area2D" to="." method="onHit"]

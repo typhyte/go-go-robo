@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=3 uid="uid://tesof8stxokw"]
+
+[ext_resource type="Script" path="res://scripts/enemy_scripts/guard.gd" id="1_8omc8"]
+[ext_resource type="Texture2D" uid="uid://dqrg2x3cjr5xr" path="res://sprites/guard/guard_idle_1.png" id="2_1ihhc"]
+[ext_resource type="Texture2D" uid="uid://dgjdnooxfp51v" path="res://sprites/guard/guard_idle_2.png" id="3_3pd6t"]
+[ext_resource type="Texture2D" uid="uid://d1qec2eqsyibf" path="res://sprites/guard/guard_idle_3.png" id="4_rrnu5"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_awh3x"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_1ihhc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_3pd6t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_rrnu5")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l1oq5"]
+radius = 32.0
+height = 192.0
+
+[node name="guard" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 6
+script = ExtResource("1_8omc8")
+
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_awh3x")
+animation = &"idle"
+
+[node name="hurt_detection" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 6
+
+[node name="hurtbox" type="CollisionShape2D" parent="hurt_detection"]
+shape = SubResource("CapsuleShape2D_l1oq5")
+
+[node name="guard_hitbox" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_l1oq5")
+
+[connection signal="body_entered" from="hurt_detection" to="." method="onBulletHit"]
